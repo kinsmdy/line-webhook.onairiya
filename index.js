@@ -33,6 +33,14 @@ app.post("/webhook", (req, res) => {
     agent.add(`I didn't understand`);
     agent.add(`I'm sorry, can you try again?`);
   }
+  function calculateArea(agent) {
+    let wide = agent.parameters.wide;
+    let lenght = agent.parameters.lenght;
+    let result = (wide = lenght);
+    agent.add(
+      "พื้นที่รูปสี่เหลี่ยม กว้าง" + wide + "ซม. ยาว" + lenght + "ตร.ซม."
+    );
+  }
 
   function bodyMassIndex(agent) {
     let weight = agent.parameters.weight;
@@ -150,6 +158,7 @@ app.post("/webhook", (req, res) => {
   intentMap.set("Default Welcome Intent", welcome);
   intentMap.set("Default Fallback Intent", fallback);
   intentMap.set("BMI - custom - yes", bodyMassIndex);
+  intentMap.set("area-rectangle - custom - yes", calculateArea);
   agent.handleRequest(intentMap);
 });
 
