@@ -23,7 +23,7 @@ app.post("/webhook", (req, res) => {
   // console.log(
   //     "Dialogflow Request headers: " + JSON.stringify(req.headers)
   // );
-  // console.log("Dialogflow Request body: " + JSON.stringify(req.body));
+  console.log("Dialogflow Request body: " + JSON.stringify(req.body));
 
   function welcome(agent) {
     agent.add(`Welcome to my agent!`);
@@ -33,13 +33,290 @@ app.post("/webhook", (req, res) => {
     agent.add(`I didn't understand`);
     agent.add(`I'm sorry, can you try again?`);
   }
+  function calculatecircle(agent) {
+    let r = agent.parameters.number;
+    let pi = Math.PI.toFixed(2)
+    let result = pi * r **2;
+    let flexMessage = {
+      type: "flex",
+      altText: "Flex Message",
+      contents: {
+        "type": "bubble",
+        "hero": {
+          "type": "image",
+          "size": "full",
+          "aspectRatio": "20:13",
+          "aspectMode": "cover",
+          "action": {
+            "type": "uri",
+            "uri": "https://www.trueplookpanya.com/learning/detail/13431"
+          },
+          "url": "https://bucket.ex10.tech/images/1cc9c4e8-4d7e-11ef-891c-0242ac120003/originalContentUrl.png"
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "weight": "bold",
+              "size": "xl",
+              "text": "circle"
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "margin": "lg",
+              "spacing": "sm",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "color": "#aaaaaa",
+                      "size": "sm",
+                      "text": " pi" + pi + "ซม. r" + r + "ซม."
+                    }
+                  ]
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": `${result.toFixed(2)} ตร.ซม.`,
+                      "color": "#aaaaaa",
+                      "size": "sm"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "footer": {
+          "type": "box",
+          "layout": "vertical",
+          "spacing": "sm",
+          "contents": [
+            {
+              "type": "button",
+              "style": "primary",
+              "height": "sm",
+              "action": {
+                "type": "uri",
+                "label": "WEBSITE",
+                "uri": "https://www.trueplookpanya.com/learning/detail/13431"
+              }
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [],
+              "margin": "sm"
+            }
+          ]
+        }
+      }
+    }
+    let payload = new Payload("LINE", flexMessage, { sendAsMessage: true });
+    agent.add(payload);
+  }
+  function calculatetriangle(agent) {
+    let base = agent.parameters.base;
+    let height = agent.parameters.height;
+    let result = 0.5 * base * height ;
+    let flexMessage = {
+      type: "flex",
+      altText: "Flex Message",
+      contents: {
+        "type": "bubble",
+        "hero": {
+          "type": "image",
+          "size": "full",
+          "aspectRatio": "20:13",
+          "aspectMode": "cover",
+          "action": {
+            "type": "uri",
+            "uri": "https://www.trueplookpanya.com/learning/detail/13431"
+          },
+          "url": "https://bucket.ex10.tech/images/fa3ad476-4d7f-11ef-891c-0242ac120003/originalContentUrl.png"
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "weight": "bold",
+              "size": "xl",
+              "text": "triangle"
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "margin": "lg",
+              "spacing": "sm",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "color": "#aaaaaa",
+                      "size": "sm",
+                      "text": `0.5 x ${base} x ${height}` 
+                    }
+                  ]
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": `${result.toFixed(2)} ตร.ซม.`,
+                      "color": "#aaaaaa",
+                      "size": "sm"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "footer": {
+          "type": "box",
+          "layout": "vertical",
+          "spacing": "sm",
+          "contents": [
+            {
+              "type": "button",
+              "style": "primary",
+              "height": "sm",
+              "action": {
+                "type": "uri",
+                "label": "WEBSITE",
+                "uri": "https://www.trueplookpanya.com/learning/detail/13431"
+              }
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [],
+              "margin": "sm"
+            }
+          ]
+        }
+      }
+    }
+    let payload = new Payload("LINE", flexMessage, { sendAsMessage: true });
+    agent.add(payload);
+  }
   function calculateArea(agent) {
     let wide = agent.parameters.wide;
     let lenght = agent.parameters.lenght;
-    let result = (wide = lenght);
+    let result = wide * lenght;
     agent.add(
-      "พื้นที่รูปสี่เหลี่ยม กว้าง" + wide + "ซม. ยาว" + lenght + "ตร.ซม."
+      "พื้นที่รูปสี่เหลี่ยม กว้าง" + wide + "ซม. ยาว" + lenght + "ซม." + result.toFixed(2) + "ตร.ซม."
     );
+    let flexMessage = {
+      type: "flex",
+      altText: "Flex Message",
+      contents: {
+        "type": "bubble",
+        "hero": {
+          "type": "image",
+          "size": "full",
+          "aspectRatio": "20:13",
+          "aspectMode": "cover",
+          "action": {
+            "type": "uri",
+            "uri": "https://www.trueplookpanya.com/learning/detail/13431"
+          },
+          "url": "https://bucket.ex10.tech/images/5fa80b59-4d79-11ef-891c-0242ac120003/originalContentUrl.png"
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "weight": "bold",
+              "size": "xl",
+              "text": "rectangle"
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "margin": "lg",
+              "spacing": "sm",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "color": "#aaaaaa",
+                      "size": "sm",
+                      "text": "กว้าง" + wide + "ซม. ยาว" + lenght + "ซม."
+                    }
+                  ]
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": `${result.toFixed(2)} ตร.ซม.`,
+                      "color": "#aaaaaa",
+                      "size": "sm"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "footer": {
+          "type": "box",
+          "layout": "vertical",
+          "spacing": "sm",
+          "contents": [
+            {
+              "type": "button",
+              "style": "primary",
+              "height": "sm",
+              "action": {
+                "type": "uri",
+                "label": "WEBSITE",
+                "uri": "https://www.trueplookpanya.com/learning/detail/13431"
+              }
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [],
+              "margin": "sm"
+            }
+          ]
+        }
+      }
+    }
+    let payload = new Payload("LINE", flexMessage, { sendAsMessage: true });
+    agent.add(payload);
   }
 
   function bodyMassIndex(agent) {
@@ -159,6 +436,8 @@ app.post("/webhook", (req, res) => {
   intentMap.set("Default Fallback Intent", fallback);
   intentMap.set("BMI - custom - yes", bodyMassIndex);
   intentMap.set("area-rectangle - custom - yes", calculateArea);
+  intentMap.set("area - circle - custom - yes", calculatecircle);
+  intentMap.set("area - triangle - custom - yes", calculatetriangle);
   agent.handleRequest(intentMap);
 });
 
